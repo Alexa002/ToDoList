@@ -12,6 +12,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { HttpClient,  } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-task-form',
@@ -25,6 +26,7 @@ import { CommonModule } from '@angular/common';
     MatCheckboxModule,
     MatProgressSpinnerModule,
     MatDatepickerModule,
+    MatInputModule
     
   ],
   templateUrl: './task-form.html',

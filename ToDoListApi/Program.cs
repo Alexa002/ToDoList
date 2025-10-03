@@ -49,9 +49,10 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAngular", policy =>
     {
-        policy.WithOrigins("http://localhost:5129")
+        policy.WithOrigins("http://localhost:4200")
               .AllowAnyHeader()
-              .AllowAnyMethod();
+              .AllowAnyMethod()
+              .AllowCredentials();
     });
 });
 
@@ -74,12 +75,15 @@ using (var scope = app.Services.CreateScope())
     Console.WriteLine("Database created successfully!");
 }
 
-app.UseCors("AllowAngular");
+
 app.UseHttpsRedirection();
 
-app.UseAuthentication(); // 👈 must come before Authorization
-app.UseAuthorization();
+app.UseCors("AllowAngular"); // 👈 CORS must go before Auth
+
+app.UseAuthentication();     // then Authentication
+app.UseAuthorization();      // then Authorization
 
 app.MapControllers();
+
 
 app.Run();

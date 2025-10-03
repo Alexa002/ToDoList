@@ -25,7 +25,7 @@ export class AccountService {
   }
 
   register(registerData: RegisterRequest): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(this.baseUrl + '/register', registerData)
+    return this.http.post<AuthResponse>(this.baseUrl + '/api/account/register', registerData)
       .pipe(tap(response => {
         this.setToken(response.token);
         this.currentUserSubject.next(response.userName);
@@ -34,7 +34,7 @@ export class AccountService {
   }
 
   login(loginData: LoginRequest): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(this.baseUrl + '/login', loginData)
+    return this.http.post<AuthResponse>(this.baseUrl + '/api/account/login', loginData)
       .pipe(tap(response => {
         this.setToken(response.token);
         this.currentUserSubject.next(response.userName);

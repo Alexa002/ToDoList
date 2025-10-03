@@ -15,6 +15,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { TaskForm } from "../task-form.component/task-forms/task-form";
 
 import { CommonModule } from '@angular/common';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-task.component',
@@ -27,6 +28,7 @@ import { CommonModule } from '@angular/common';
     MatCheckboxModule,
     MatProgressSpinnerModule,
     MatDatepickerModule, TaskForm,
+    MatInputModule
     ],
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.css'
@@ -42,7 +44,7 @@ export class TaskListComponent implements OnInit {
   constructor(private taskService: TaskService, private accountService: AccountService) { }
 
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
+    this.loadTasks();
   }
 
   loadTasks(): void {

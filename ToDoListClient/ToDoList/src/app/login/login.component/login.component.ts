@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { CommonModule } from '@angular/common';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-login.component',
@@ -14,7 +15,8 @@ import { CommonModule } from '@angular/common';
     MatFormFieldModule,
     MatCardModule,
     MatFormFieldModule,
-    ReactiveFormsModule],
+    ReactiveFormsModule,
+  MatInputModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
@@ -25,8 +27,8 @@ export class LoginComponent {
 
   constructor(private accountService: AccountService, private router: Router, private fb: FormBuilder) {
     this.loginForm = this.fb.group({
-      username: ['', Validators.required],
-      password: ['', Validators.required, Validators.minLength(6), Validators.maxLength(8)]
+      username: ['', [Validators.required]],
+      password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(8)]]
     });
 
 

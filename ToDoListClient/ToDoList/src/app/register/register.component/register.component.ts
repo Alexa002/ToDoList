@@ -8,6 +8,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 
 import { CommonModule } from '@angular/common';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-register.component',
@@ -16,6 +17,7 @@ import { CommonModule } from '@angular/common';
     MatCardModule,
     MatFormFieldModule,
     ReactiveFormsModule,
+    MatInputModule
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
@@ -29,7 +31,7 @@ export class RegisterComponent {
 
   constructor(private fromBuilder: FormBuilder, private accountService: AccountService, private router: Router) {
     this.registerForm = this.fromBuilder.group({
-      username: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
+      userName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(8)]],
     });
