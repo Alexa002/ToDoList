@@ -1,0 +1,139 @@
+<div class="task-list-container">
+  <!-- Header -->
+  <mat-toolbar color="primary" class="header">
+    <span>My Todo List</span>
+    
+    <span class="spacer"></span>
+    
+    <div class="user-info" *ngIf="currentUserName">
+      <span>Welcome, {{ currentUserName }}!</span>
+      <button mat-button (click)="logout()" class="logout-btn">
+        <mat-icon>logout</mat-icon>
+        Logout
+      </button>
+    </div>
+  </mat-toolbar>
+
+  <div class="main-content">
+    <!-- Task Stats -->
+    <div class="stats-container" *ngIf="tasks.length > 0">
+      <mat-card class="stat-card">
+        <mat-card-content>
+          <div class="stat">
+            <h3>{{ taskStats.total }}</h3>
+            <span>Total</span>
+          </div>
+        </mat-card-content>
+      </mat-card>
+      
+      <mat-card class="stat-card">
+        <mat-card-content>
+          <div class="stat pending">
+            <h3>{{ taskStats.pending }}</h3>
+            <span>Pending</span>
+          </div>
+        </mat-card-content>
+      </mat-card>
+      
+      <mat-card class="stat-card">
+        <mat-card-content>
+          <div class="stat completed">
+            <h3>{{ taskStats.completed }}</h3>
+            <span>Completed</span>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <!-- Task Form -->
+    <app-task-form (taskCreated)="onTaskCreated($event)"></app-task-form>
+
+    <!-- Loading State -->
+    <div *ngIf="isLoading" class="loading-state">
+      <mat-spinner diameter="40"></mat-spinner>
+      <p>Loading tasks...</p>
+    </div>
+
+    <!-- Error State -->
+    <div *ngIf="errorMessage && !isLoading" class="error-state">
+      <mat-icon color="warn">error</mat-icon>
+      <p>{{ errorMessage }}</p>
+      <button mat-raised-button color="primary" (click)="loadTasks()">
+        Try Again
+      </button>
+    </div>
+
+    <!-- Filter Buttons -->
+    <div *ngIf="tasks.length > 0 && !isLoading" class="filter-buttons">
+      <button 
+        mat-button 
+        [class.active]="filterStatus === 'all'"
+        (click)="onFilterChange('all')">
+        All ({{ taskStats.total }})
+      </button>
+      <button 
+        mat-button 
+        [class.active]="filterStatus === 'pending'"
+        (click)="onFilterChange('pending')">
+        Pending ({{ taskStats.pending }})
+      </button>
+      <button 
+        mat-button 
+        [class.active]="filterStatus === 'completed'"
+        (click)="onFilterChange('completed')">
+        Completed ({{ taskStats.completed }})
+      </button>
+    </div>
+
+    <!-- Task List -->
+    <div *ngIf="!isLoading" class="tasks-container">
+      <!-- Empty State -->
+      <div *ngIf="filteredTasks.length === 0" class="empty-state">
+        <mat-icon class="empty-icon">check_circle</mat-icon>
+        <h3>No tasks found</h3>
+        <p *ngIf="filterStatus === 'all'">Get started by creating your first task above!</p>
+        <p *ngIf="filterStatus === 'pending'">No pending tasks. Great job!</p>
+        <p *ngIf="filterStatus === 'completed'">No completed tasks yet.</p>
+      </div>
+
+      <!-- Tasks -->
+      <div *ngFor="let task of filteredTasks" class="task-item">
+        <mat-card [class.completed]="task.isCompleted">
+          <mat-card-content>
+            <div class="task-content">
+              <mat-checkbox
+                [checked]="task.isCompleted"
+                (change)="onTaskToggled(task.id)"
+                color="primary"
+                class="checkbox">
+              </mat-checkbox>
+              
+              <div class="task-details">
+                <h3 [class.completed-text]="task.isCompleted">{{ task.title }}</h3>
+                <p *ngIf="task.description" class="description">{{ task.description }}</p>
+                
+                <div class="task-meta">
+                  <span class="created-date">
+                    Created: {{ task.createdAt | date:'mediumDate' }}
+                  </span>
+                  <span *ngIf="task.dueDate" class="due-date">
+                    Due: {{ task.dueDate | date:'mediumDate' }}
+                  </span>
+                </div>
+              </div>
+              
+              <button 
+                mat-icon-button 
+                color="warn" 
+                (click)="onTaskDeleted(task.id)"
+                class="delete-btn"
+                matTooltip="Delete task">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>

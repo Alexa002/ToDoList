@@ -1,0 +1,199 @@
+.task-list-container {
+  min-height: 100vh;
+  background-color: #fafafa;
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.logout-btn {
+  color: white;
+}
+
+.main-content {
+  padding: 24px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.stats-container {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.stat-card {
+  flex: 1;
+  min-width: 120px;
+}
+
+.stat {
+  text-align: center;
+}
+
+.stat h3 {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.stat span {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.stat.pending h3 {
+  color: #ff9800;
+}
+
+.stat.completed h3 {
+  color: #4caf50;
+}
+
+.filter-buttons {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 24px;
+  justify-content: center;
+}
+
+.filter-buttons button.active {
+  background-color: #3f51b5;
+  color: white;
+}
+
+.tasks-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.task-item mat-card {
+  transition: all 0.3s ease;
+}
+
+.task-item mat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.task-item mat-card.completed {
+  opacity: 0.7;
+  background-color: #f5f5f5;
+}
+
+.task-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.checkbox {
+  margin-top: 4px;
+}
+
+.task-details {
+  flex: 1;
+}
+
+.task-details h3 {
+  margin: 0 0 8px 0;
+  font-weight: 500;
+}
+
+.task-details h3.completed-text {
+  text-decoration: line-through;
+  color: #666;
+}
+
+.description {
+  color: #666;
+  margin: 0 0 12px 0;
+  line-height: 1.4;
+}
+
+.task-meta {
+  display: flex;
+  gap: 16px;
+  font-size: 0.8rem;
+  color: #888;
+}
+
+.created-date, .due-date {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.delete-btn {
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+.delete-btn:hover {
+  opacity: 1;
+}
+
+.loading-state, .error-state, .empty-state {
+  text-align: center;
+  padding: 48px;
+  color: #666;
+}
+
+.error-state mat-icon {
+  font-size: 3rem;
+  width: 3rem;
+  height: 3rem;
+  margin-bottom: 16px;
+}
+
+.empty-icon {
+  font-size: 4rem;
+  width: 4rem;
+  height: 4rem;
+  color: #4caf50;
+  margin-bottom: 16px;
+}
+
+.empty-state h3 {
+  margin: 0 0 8px 0;
+}
+
+.empty-state p {
+  margin: 0;
+  color: #888;
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    padding: 16px;
+  }
+  
+  .stats-container {
+    flex-direction: column;
+  }
+  
+  .task-content {
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .task-meta {
+    flex-direction: column;
+    gap: 4px;
+  }
+}

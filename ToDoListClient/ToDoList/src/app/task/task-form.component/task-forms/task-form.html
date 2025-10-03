@@ -1,0 +1,76 @@
+<div class="task-form-container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Add New Task</mat-card-title>
+      <button 
+        mat-icon-button 
+        (click)="toggleExpanded()"
+        [class.expanded]="isExpanded">
+        <mat-icon>{{ isExpanded ? 'expand_less' : 'add' }}</mat-icon>
+      </button>
+    </mat-card-header>
+
+    <mat-card-content *ngIf="isExpanded">
+      <form [formGroup]="taskForm" (ngSubmit)="onSubmit()" class="task-form">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Task Title</mat-label>
+          <input 
+            matInput 
+            formControlName="title" 
+            placeholder="What needs to be done?"
+            maxlength="200">
+          <mat-hint align="end">{{ title?.value?.length || 0 }}/200</mat-hint>
+          <mat-error *ngIf="title?.hasError('required')">
+            Task title is required
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Description (Optional)</mat-label>
+          <textarea 
+            matInput 
+            formControlName="description" 
+            rows="3"
+            placeholder="Add more details..."
+            maxlength="1000">
+          </textarea>
+          <mat-hint align="end">
+            {{ taskForm.get('description')?.value?.length || 0 }}/1000
+          </mat-hint>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Due Date (Optional)</mat-label>
+          <input 
+            matInput 
+            [matDatepicker]="picker" 
+            formControlName="dueDate">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <div *ngIf="errorMessage" class="error-message">
+          <mat-icon color="warn">error</mat-icon>
+          {{ errorMessage }}
+        </div>
+
+        <div class="form-actions">
+          <button 
+            mat-button 
+            type="button" 
+            (click)="toggleExpanded()">
+            Cancel
+          </button>
+          <button 
+            mat-raised-button 
+            color="primary" 
+            type="submit"
+            [disabled]="!taskForm.valid || isLoading">
+            <span *ngIf="!isLoading">Add Task</span>
+            <span *ngIf="isLoading">Adding...</span>
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
